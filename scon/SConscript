@@ -1,0 +1,18 @@
+Import( 'env' )
+
+# default is release version
+envMyXWin = env.Clone( CPPPATH = [], CXXFLAGS=['-Os', '-s'])
+env.VariantDir( 'build', [ '../' ], duplicate=0 )
+
+######################################################
+# myxwin
+
+mywin = envMyXWin.Program( 'myxwin',
+    Glob('build/*.cpp' ),
+    LIBS = ['X11' ],
+    LIBPATH= '#out' )
+
+# set out folder
+env.Install( '#out', mywin )
+env.Alias( 'install', '#out' )
+
